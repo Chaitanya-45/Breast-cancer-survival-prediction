@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Survival Prediction App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+        }
+        .container {
+            margin-top: 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .card-header h1 {
+            font-weight: 600;
+            margin: 0;
+            font-size: 1.75rem;
+        }
+        .card-body {
+            padding: 40px;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+        .form-control {
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Breast Cancer Survival Prediction App</h1>
+            </div>
+            <div class="card-body">
+                <form action="/predict" method="post">
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="number" class="form-control" id="age" name="age" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select class="form-control" id="gender" name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="protein1">Protein 1 (Ki-67):</label>
+                        <input type="number" step="0.001" class="form-control" id="protein1" name="protein1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="protein2">Protein 2 (p53):</label>
+                        <input type="number" step="0.001" class="form-control" id="protein2" name="protein2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="protein3">Protein 3 (BRCA1/BRCA2):</label>
+                        <input type="number" step="0.001" class="form-control" id="protein3" name="protein3" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="protein4">Protein 4 (VEGF):</label>
+                        <input type="number" step="0.001" class="form-control" id="protein4" name="protein4" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tumour_stage">Tumour Stage:</label>
+                        <select class="form-control" id="tumour_stage" name="tumour_stage" required>
+                            <option value="I">I</option>
+                            <option value="II">II</option>
+                            <option value="III">III</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="histology">Histology:</label>
+                        <select class="form-control" id="histology" name="histology" required>
+                            <option value="Infiltrating Ductal Carcinoma">Infiltrating Ductal Carcinoma</option>
+                            <option value="Infiltrating Lobular Carcinoma">Infiltrating Lobular Carcinoma</option>
+                            <option value="Mucinous Carcinoma">Mucinous Carcinoma</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="er_status">ER Status:</label>
+                        <select class="form-control" id="er_status" name="er_status" required>
+                            <option value="Positive">Positive</option>
+                            <option value="Negative">Negative</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pr_status">PR Status:</label>
+                        <select class="form-control" id="pr_status" name="pr_status" required>
+                            <option value="Positive">Positive</option>
+                            <option value="Negative">Negative</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="her2_status">HER2 Status:</label>
+                        <select class="form-control" id="her2_status" name="her2_status" required>
+                            <option value="Positive">Positive</option>
+                            <option value="Negative">Negative</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="surgery_type">Surgery Type:</label>
+                        <select class="form-control" id="surgery_type" name="surgery_type" required>
+                            <option value="Lumpectomy">Lumpectomy</option>
+                            <option value="Simple Mastectomy">Simple Mastectomy</option>
+                            <option value="Modified Radical Mastectomy">Modified Radical Mastectomy</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Predict</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
